@@ -48,9 +48,19 @@ async function getJoke() {
 
 // console.log("logging return from getJoke: ", getJoke())
 
+function addJokeToList(joke){
+    document.querySelector('#joke').innerHTML += `<li> ${joke} </li>`
+}
+
+const jokes = JSON.parse(localStorage.jokes) || []
+jokes.forEach(joke => addJokeToList(joke))
+
 document.querySelector('button').addEventListener('click', async event => {
     try {
-        document.querySelector('#joke').innerText = await getJoke()
+        const joke = await getJoke()
+        jokes.push(joke)
+        localStorage.jokes = JSON.stringify(jokes)
+        addJokeToList(joke)
     }
     catch (err) {
         alert(err.message)
