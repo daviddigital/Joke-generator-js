@@ -46,12 +46,15 @@ async function getJoke() {
 //     // getJoke().then(result => console.log(result))  this is same as above
 // }
 
-console.log("logging return from getJoke: ", getJoke())
+// console.log("logging return from getJoke: ", getJoke())
 
-document.querySelector('button').addEventListener('click', event => {
-    getJoke()
-    .then(joke => document.querySelector('#joke').innerText = joke)
-    .catch(err => console.log(err.message))
+document.querySelector('button').addEventListener('click', async event => {
+    try {
+        document.querySelector('#joke').innerText = await getJoke()
+    }
+    catch (err) {
+        alert(err.message)
+    }
 })
 
 
